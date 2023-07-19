@@ -26,6 +26,7 @@ export default function Login(props){
           setOpenPopup(false);
           const username =data.user ;
         } else {
+          alert('Usuario o contraseña incorrectos');
           incorrecto = true;
         }
       }
@@ -79,7 +80,6 @@ export default function Login(props){
               id="password"
               autoComplete="current-password"
             />
-            
             <Button
               type="submit"
               fullWidth
@@ -88,11 +88,12 @@ export default function Login(props){
             >
               login
             </Button>
+
           </form>
         </Box>
       </Container>
     </DialogContent>
-    {incorrecto? (<Alert>'contraseña o usuario incorrecto'</Alert>): ''
+    {//incorrecto? (<Alert>'contraseña o usuario incorrecto'</Alert>): ''
     }
     </Dialog>
     )

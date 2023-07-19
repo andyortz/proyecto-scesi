@@ -6,7 +6,17 @@ import { CssBaseline, ThemeProvider, createTheme} from '@mui/material';
 
 const theme = createTheme({
   palette: {
-    type: 'light',
+    type: 'ligth',
+    primary: {
+      main: '#af1e1e',
+    },
+    secondary: {
+      main: '#e39e0d',
+    },
+    error: {
+      main: '#00f7ed',
+    },
+    type: 'dark',
     primary: {
       main: '#af1e1e',
     },
@@ -17,6 +27,7 @@ const theme = createTheme({
       main: '#00f7ed',
     },
   },
+
 });
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

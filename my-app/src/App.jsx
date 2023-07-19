@@ -2,7 +2,7 @@ import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
 import { ServicesForm } from "./components/ServicesForm";
 import "./App.css";
-import { Button, ThemeProvider, Typography } from "@mui/material";
+import { Button, ThemeProvider, Typography, createMuiTheme } from "@mui/material";
 import  ServicesList  from "./components/ServicesList";
 let num = 1;
 const IMG = "servicesApp.services";
@@ -14,7 +14,6 @@ function App() {
       isCompleted: false,
     },
   ]);
-  
   useEffect(()=>{
     if(services.length > 1){
       localStorage.setItem(IMG, JSON.stringify(services));
@@ -41,7 +40,7 @@ function App() {
   };
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <ServicesList services={services} toggleService={toggleService} />
       <Button variant="contained" onClick={addService}>Press me </Button>
       <Typography variant="h1" color="primary">
