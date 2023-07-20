@@ -7,6 +7,9 @@ import { CssBaseline, ThemeProvider, createTheme} from '@mui/material';
 const theme = createTheme({
   palette: {
     type: 'ligth',
+    background: {
+      default: "#c7bebe"
+    },
     primary: {
       main: '#af1e1e',
     },

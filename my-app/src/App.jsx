@@ -9,9 +9,14 @@ const IMG = "servicesApp.services";
 function App() {
   const [services, setServices] = useState([
     {
-      img: 0,
-      text: "learning",
+      id: 1,
+      titulo: "Recover Title",
+      category: "Consegurir de tipo Cat",
+      user: "getUser",
+      price: 0.00,
+      description: "Descripcion del producto",
       isCompleted: false,
+
     },
   ]);
   useEffect(()=>{
@@ -29,7 +34,7 @@ function App() {
   
   const addService = () =>{
     setServices((prevServices) =>{
-      return [...prevServices, {img: num++, text: "XD", isCompleted: false}]
+      return [...prevServices, {id: services.length + 1, titulo: "XD", isCompleted: false, description:"aholas"}]
     })
   };
   const toggleService = (img) =>{
@@ -43,11 +48,7 @@ function App() {
       <Navbar/>
       <ServicesList services={services} toggleService={toggleService} />
       <Button variant="contained" onClick={addService}>Press me </Button>
-      <Typography variant="h1" color="primary">
-        Lorem x dolor sit amet consectetur, adipisicing elit. Eius quas odio,
-        mollitia nulla dicta, totam quis sunt reiciendis illum error porro,
-        libero ut fugiat. Numquam pariatur labore alias soluta est!
-      </Typography>
+      
     </>
   );
 }

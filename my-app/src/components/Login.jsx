@@ -31,7 +31,7 @@ export default function Login(props){
         }
       }
       return (
-    <Dialog open={openPopup} maxWidth="md">
+    <Dialog open={openPopup} maxWidth="sm">
         <DialogTitle>
             <Toolbar>
             <Typography component="h1" variant="h5" sx={{
@@ -47,7 +47,7 @@ export default function Login(props){
               </Toolbar>
         </DialogTitle>
         <DialogContent>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" >
         <CssBaseline />
         <Box
           sx={{
@@ -56,7 +56,7 @@ export default function Login(props){
             alignItems: 'center',
           }}
         >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 4, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
           <form onSubmit={handleSubmit} sx={{ mt: 1 }}>
