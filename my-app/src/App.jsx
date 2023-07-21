@@ -2,42 +2,70 @@ import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
 import { ServicesForm } from "./components/ServicesForm";
 import "./App.css";
-import { Button, ThemeProvider, Typography, createMuiTheme } from "@mui/material";
-import  ServicesList  from "./components/ServicesList";
-let num = 1;
+import {
+  Button,
+  ThemeProvider,
+  Typography,
+  createMuiTheme,
+} from "@mui/material";
+import ServicesList from "./components/ServicesList";
+
 const IMG = "servicesApp.services";
 function App() {
+  const categories = [
+    "Desarrollo Mobil",
+    "Desarrollo Web",
+    "Diseño de Logo",
+    "Diseño Grafico",
+    "Diseño UX/UI",
+    "Diseño Web",
+    "Edicion de Audio",
+    "Edicion de Video",
+    "Fotografía",
+    "Marketing",
+    "Musica",
+    "Tutoria",
+    "Otro"
+  ];
   const [services, setServices] = useState([
     {
       id: 1,
       titulo: "Recover Title",
       category: "Consegurir de tipo Cat",
-      user: "getUser",
-      price: 0.00,
+      user: "id",
+      price: 0.0,
       description: "Descripcion del producto",
       isCompleted: false,
-
     },
   ]);
-  useEffect(()=>{
-    if(services.length > 1){
+
+  useEffect(() => {
+    if (services.length > 1) {
       localStorage.setItem(IMG, JSON.stringify(services));
     }
   }, [services]);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     const storedServices = JSON.parse(localStorage.getItem(IMG));
-    if(storedServices){
+    if (storedServices) {
       setServices(storedServices);
     }
-  },[ ]);
-  
-  const addService = () =>{
-    setServices((prevServices) =>{
-      return [...prevServices, {id: services.length + 1, titulo: "XD", isCompleted: false, description:"aholas"}]
-    })
+  }, []);
+
+  const addService = () => {
+    setServices((prevServices) => {
+      return [
+        ...prevServices,
+        {
+          id: services.length + 1,
+          titulo: "XD",
+          isCompleted: false,
+          description: "aholas",
+        },
+      ];
+    });
   };
-  const toggleService = (img) =>{
+  const toggleService = (img) => {
     const newServices = [...services];
     const service = newServices.find((service) => service.img === img);
     service.isCompleted = !service.isCompleted;
@@ -45,10 +73,15 @@ function App() {
   };
   return (
     <>
-      <Navbar/>
-      <ServicesList services={services} toggleService={toggleService} />
-      <Button variant="contained" onClick={addService}>Press me </Button>
-      
+      <Navbar categories={categories} />
+      <ServicesList
+        services={services}
+        toggleService={toggleService}
+        categories={categories}
+      />
+      <Button variant="contained" onClick={addService}>
+        Press me{" "}
+      </Button>
     </>
   );
 }

@@ -56,7 +56,7 @@ export default function Login(props){
             alignItems: 'center',
           }}
         >
-        <Avatar sx={{ m: 4, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 4, bgcolor: 'secondary.main',minHeight: 100, minWidth: 100 }}>
           <LockOutlinedIcon />
         </Avatar>
           <form onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -88,7 +88,6 @@ export default function Login(props){
             >
               login
             </Button>
-
           </form>
         </Box>
       </Container>

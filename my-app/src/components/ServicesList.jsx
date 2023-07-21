@@ -11,26 +11,15 @@ import {
   InputLabel,
   Button,
   OutlinedInput,
-  Typography
+  Typography,
 } from "@mui/material";
 
-export default function ServicesList({ services, toggleService }) {
+export default function ServicesList({ services, toggleService, categories }) {
   const [category, setCategory] = useState("");
   const handleChange = (event) => {
     setCategory(event.target.value);
   };
-  const categories = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
+
   return (
     <>
       <Paper
@@ -45,7 +34,7 @@ export default function ServicesList({ services, toggleService }) {
         }}
       >
         <Toolbar>
-            <Typography variant="h6" >Search </Typography>
+          <Typography variant="h6">Search </Typography>
           <Box sx={{ maxWidth: 250, flexGrow: 1, mx: 3 }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -54,10 +43,11 @@ export default function ServicesList({ services, toggleService }) {
                 onChange={handleChange}
                 input={<OutlinedInput label="Categories" />}
               >
-              {categories.map((category) => (
-                <MenuItem key={category} value={category}>{category}
-                </MenuItem>
-              ))}
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -66,7 +56,9 @@ export default function ServicesList({ services, toggleService }) {
             label="Titulo"
             variant="outlined"
           />
-          <Button variant="contained" sx={{maxWidth: 200,flexGrow:1}}>Go</Button>
+          <Button variant="contained" sx={{ maxWidth: 200, flexGrow: 1 }}>
+            Go
+          </Button>
         </Toolbar>
       </Paper>
       {services.map((service) => (
@@ -92,7 +84,7 @@ export default function ServicesList({ services, toggleService }) {
           <Box sx={{ maxWidth: 250, flexGrow: 1, marginX: 2 }}>
             Numero de elementos mostrados en la lista
           </Box>
-          
+
           <Button variant="contained">mostrar menos elementos</Button>
         </Toolbar>
       </Paper>

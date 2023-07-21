@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import Login from "./Login";
 import Create from "./Create";
+import Register from "./Register";
 function ScrollTop(props) {
-  const { children, window } = props;
+  const { children, window, categories } = props;
   const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector(
       "#back-to-top-anchor"
@@ -65,7 +66,10 @@ export default function BackToTop(props) {
       </ScrollTop>
       {//<Login openPopup={openPopup} setOpenPopup={setOpenPopup} />
       
-      }<Create openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      }
+      {//<Create openPopup={openPopup} setOpenPopup={setOpenPopup} categories={props.categories}/>
+      }
+      <Register openPopup={openPopup} setOpenPopup={setOpenPopup}/>
     </>
   );
 }
