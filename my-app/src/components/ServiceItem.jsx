@@ -47,15 +47,15 @@ export default function ServiceItem({ service, toggleService }) {
     >
       <CardActionArea onClick={() => {setOpenPopup(true)}}>
         <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase sx={{ width: 250, height: 185, marginX: 2 }}>
+          <Grid item md={3} xs={12}>
+            <ButtonBase sx={{ width: "100%", height: 185, marginX: 2 }}>
               <Img
                 alt="complex"
                 src={require("../img/emily-bernal-v9vII5gV8Lw-unsplash.jpg")}
               />
             </ButtonBase>
           </Grid>
-          <Grid item xs={12} sm container>
+          <Grid item md={9} xs={12}container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs sx={{ margin: 2 }}>
                 <Typography gutterBottom variant="h5" component="div">

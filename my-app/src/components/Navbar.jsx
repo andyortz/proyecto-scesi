@@ -52,8 +52,10 @@ function ScrollTop(props) {
   );
 }
 
+
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
+  boxShadow: "none",
   alignItems: "center",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
@@ -168,7 +170,7 @@ export default function BackToTop(props) {
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }} onClick={() => {props.setLoged(false)}}>
-                <ListItemText sx={{color:"primary.main" }} primary={" Cerrar Sesion "} />
+                <ListItemText sx={{color:"primary.main" }} primary={"  Sesion Cerrar"} />
               </ListItemButton>
             </ListItem>
           </List>

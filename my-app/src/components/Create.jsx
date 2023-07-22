@@ -150,6 +150,7 @@ export default function Create(props) {
                 name="description"
                 label="Description..."
                 type="text"
+                multiline
                 id="description"
               />
               <Button

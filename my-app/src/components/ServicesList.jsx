@@ -36,7 +36,7 @@ export default function ServicesList({ services, toggleService, categories }) {
         <Toolbar>
           <Typography variant="h6">Search </Typography>
           <Box sx={{ maxWidth: 250, flexGrow: 1, mx: 3 }}>
-            <FormControl fullWidth>
+            <FormControl fullWidth size= "small">
               <InputLabel id="demo-simple-select-label">Category</InputLabel>
               <Select
                 value={category}
@@ -52,7 +52,8 @@ export default function ServicesList({ services, toggleService, categories }) {
             </FormControl>
           </Box>
           <TextField
-            sx={{ flexGrow: 1, marginX: 1 }}
+            sx={{ flexGrow: 1, marginX: 1}}
+            size="small"
             label="Titulo"
             variant="outlined"
           />

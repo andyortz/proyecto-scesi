@@ -9,10 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, makeStyles, ThemeProvider } from '@mui/material/styles';
 import { Alert, AppBar, Dialog, DialogContent, DialogTitle, Toolbar } from "@mui/material";
-import { AirlineSeatLegroomReduced, LegendToggle } from '@mui/icons-material';
-
-const defaultTheme = createTheme();
-let incorrecto = false;
+import { loginUser } from "../services/user";
 export default function Login(props){
     const {openPopup, setOpenPopup, loged, setLoged} = props;
     const handleSubmit = (event) => {
@@ -21,15 +18,7 @@ export default function Login(props){
           user: event.target.email.value,
           password: event.target.password.value
         }
-        if(data.user === 'prueba' && data.password === '12345678') {
-          console.log("xD");
-          setOpenPopup(false);
-          setLoged(true);
-          const username =data.user ;
-        } else {
-          alert('Usuario o contraseña incorrectos');
-          incorrecto = true;
-        }
+        loginUser(data);
       }
       return (
     <Dialog open={openPopup} maxWidth="sm">
@@ -65,8 +54,8 @@ export default function Login(props){
               margin="normal"
               required
               fullWidth
-              id="user"
-              label="Email Address or User"
+              id="email"
+              label="Correo Electrónico"
               name="email"
               autoComplete="email"
               autoFocus
@@ -76,7 +65,7 @@ export default function Login(props){
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -87,14 +76,12 @@ export default function Login(props){
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              login
+              Login
             </Button>
           </form>
         </Box>
       </Container>
     </DialogContent>
-    {//incorrecto? (<Alert>'contraseña o usuario incorrecto'</Alert>): ''
-    }
     </Dialog>
     )
 }

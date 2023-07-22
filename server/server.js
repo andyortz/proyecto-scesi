@@ -13,18 +13,20 @@ const bd = mysql.createConnection({
   user: "root",
   password: "",
   database: "pagina",
+  port: "3307"
 });
 
 app.post("/user", (req, res) =>{
-  const value ={
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    foto: req.body.foto,
-    telf: req.body.telf,
-    red: req.body.red
-  }
-  db.query("INSERT INTO user(name, email, password, foto, telf, red) VALUES(?,?,?,?,?)", value,
+  const value =[
+   req.body.name,
+   req.body.email,
+   req.body.password,
+   req.body.foto,
+   req.body.telf,
+   req.body.red
+  ]
+  const sql = "INSERT INTO user(name, email, password, foto, telf, red) VALUES(?)";
+  bd.query(sql, [value],
   (err, result) =>{
     if(err){
       console.log(err);
@@ -33,4 +35,4 @@ app.post("/user", (req, res) =>{
     }
   });
 })
-app.listen(4000, () => console.log("hola soy el servidor"))
+app.listen(4000, () => console.log("server"))

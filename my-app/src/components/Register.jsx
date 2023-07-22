@@ -4,27 +4,18 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import { createTheme, makeStyles, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
+import { createUser } from "../services/user";
+
 import {
-  Alert,
-  AppBar,
   Dialog,
   DialogContent,
   DialogTitle,
   Toolbar,
-  FormControl,
 } from "@mui/material";
-import {
-  AirlineSeatLegroomReduced,
-  LegendToggle,
-  PersonOutline,
-} from "@mui/icons-material";
 
 const defaultFile =
   "https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png";
@@ -42,24 +33,19 @@ export default function Register(props) {
     foto: "",
     password: "",
     telf: "",
-      red: ""
-    });
+    red: "",
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
-        setValues({
-          foto: event.target.foto.value,
-          name: event.target.name.value,
-          email: event.target.email.value,
-          password: event.target.password.value,
-          telf: event.target.telf.value,
-          red: event.target.red.value,
-        });
-    console.log(values);
-
-    axios
-      .post("http://localhost:4000/user", values)
-      .then(res=> console.log(res))
-      .catch(err => console.log(err))
+    setValues({
+      foto: event.target.foto.value,
+      name: event.target.name.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
+      telf: event.target.telf.value,
+      red: event.target.red.value,
+    });
+    createUser(values);
   };
   const script = () => {
     const file = document.getElementById("foto");
@@ -139,7 +125,6 @@ export default function Register(props) {
                   accept="image/*"
                   name="foto"
                   type="file"
-                  
                   id="foto"
                   onClick={script}
                 />
