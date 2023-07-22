@@ -25,6 +25,7 @@ import {
   LegendToggle,
   PersonOutline,
 } from "@mui/icons-material";
+
 const defaultFile =
   "https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png";
 const Img = styled("img")({
@@ -41,8 +42,8 @@ export default function Register(props) {
     foto: "",
     password: "",
     telf: "",
-    red: ""
-  });
+      red: ""
+    });
   const handleSubmit = (event) => {
     event.preventDefault();
         setValues({
@@ -54,12 +55,11 @@ export default function Register(props) {
           red: event.target.red.value,
         });
     console.log(values);
+
     axios
-      .post("http://localhost:4000/pagina/user", values)
+      .post("http://localhost:4000/user", values)
       .then(res=> console.log(res))
       .catch(err => console.log(err))
-      
-    alert("Registro exitoso");
   };
   const script = () => {
     const file = document.getElementById("foto");

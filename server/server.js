@@ -15,17 +15,22 @@ const bd = mysql.createConnection({
   database: "pagina",
 });
 
-app.get("/", (req, res) => {
-  res.send("hola desde tu primera ruta de la Api");
-});
-
 app.post("/user", (req, res) =>{
   const value ={
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
     foto: req.body.foto,
-    
+    telf: req.body.telf,
+    red: req.body.red
   }
+  db.query("INSERT INTO user(name, email, password, foto, telf, red) VALUES(?,?,?,?,?)", value,
+  (err, result) =>{
+    if(err){
+      console.log(err);
+    }else{
+      res.send("Empleado regsitrado");
+    }
+  });
 })
 app.listen(4000, () => console.log("hola soy el servidor"))
