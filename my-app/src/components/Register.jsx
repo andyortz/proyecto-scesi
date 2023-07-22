@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import { useState, useRef } from "react";
 import { styled } from "@mui/material/styles";
 import { createTheme, makeStyles, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 import {
   Alert,
   AppBar,
@@ -33,22 +34,32 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 export default function Register(props) {
-  const { openPopup, setOpenPopup } = props;
-  const { user, setUser } = useState("");
+  const { openPopup, setOpenPopup, users, setUsers } = props;
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    foto: "",
+    password: "",
+    telf: "",
+    red: ""
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = {
-      user: event.target.email.value,
-      password: event.target.password.value,
-      img: event.target.img.value,
-    };
-    if (data.user === "prueba" && data.password === "12345678") {
-      console.log("xD");
-      setOpenPopup(false);
-      const username = data.user;
-    } else {
-      alert("Usuario o contraseña incorrectos");
-    }
+        setValues({
+          foto: event.target.foto.value,
+          name: event.target.name.value,
+          email: event.target.email.value,
+          password: event.target.password.value,
+          telf: event.target.telf.value,
+          red: event.target.red.value,
+        });
+    console.log(values);
+    axios
+      .post("http://localhost:4000/pagina/user", values)
+      .then(res=> console.log(res))
+      .catch(err => console.log(err))
+      
+    alert("Registro exitoso");
   };
   const script = () => {
     const file = document.getElementById("foto");
@@ -128,7 +139,7 @@ export default function Register(props) {
                   accept="image/*"
                   name="foto"
                   type="file"
-                  required
+                  
                   id="foto"
                   onClick={script}
                 />
@@ -166,6 +177,13 @@ export default function Register(props) {
                   name="telf"
                   label="Telefono"
                   id="telf"
+                />
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  name="red"
+                  label="Link de alguna Red Social(opcional)"
+                  id="red"
                 />
                 <Button
                   type="submit"

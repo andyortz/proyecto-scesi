@@ -14,7 +14,7 @@ import { AirlineSeatLegroomReduced, LegendToggle } from '@mui/icons-material';
 const defaultTheme = createTheme();
 let incorrecto = false;
 export default function Login(props){
-    const {openPopup, setOpenPopup} = props;
+    const {openPopup, setOpenPopup, loged, setLoged} = props;
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = {
@@ -24,6 +24,7 @@ export default function Login(props){
         if(data.user === 'prueba' && data.password === '12345678') {
           console.log("xD");
           setOpenPopup(false);
+          setLoged(true);
           const username =data.user ;
         } else {
           alert('Usuario o contraseña incorrectos');

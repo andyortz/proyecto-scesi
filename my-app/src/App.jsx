@@ -1,6 +1,5 @@
 import Navbar from "./components/Navbar";
 import { useState, useEffect } from "react";
-import { ServicesForm } from "./components/ServicesForm";
 import "./App.css";
 import {
   Button,
@@ -39,6 +38,8 @@ function App() {
     },
   ]);
 
+  const [loged, setLoged] = useState(false);
+  const [user, setUser] = useState([]);
   useEffect(() => {
     if (services.length > 1) {
       localStorage.setItem(IMG, JSON.stringify(services));
@@ -73,8 +74,9 @@ function App() {
   };
   return (
     <>
-      <Navbar categories={categories} />
+      <Navbar categories={categories} loged={loged} setLoged = {setLoged} user={user} setUser={setUser} />
       <ServicesList
+        user = {user}
         services={services}
         toggleService={toggleService}
         categories={categories}
