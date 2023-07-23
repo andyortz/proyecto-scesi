@@ -35,24 +35,16 @@ const Img = styled("img")({
 });
 
 export default function EditProfile(props) {
-  const { openPopup, setOpenPopup, users, setUsers } = props;
-
+  const { openPopup, setOpenPopup, user, setUser } = props;
+  const data = props.user;
+  const onChange = (event) =>{
+    props.setUser({
+      ...props.user, [event.target.name]: event.target.value,
+    });
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUsers((prevUsers) => {
-      return [
-        ...prevUsers,
-        {
-          idProfile: props.users.length + 1,
-          foto: event.target.foto.value,
-          name: event.target.name.value,
-          email: event.target.email.value,
-          password: event.target.password.value,
-          telf: event.target.telf.value,
-          red: event.target.red.value,
-        },
-      ];
-    });
+    props.setOpenPopup(false);
     alert("Pefil Actualizado Correctamente");
   };
   const script = () => {
@@ -89,7 +81,10 @@ export default function EditProfile(props) {
           >
             PERFIL
           </Typography>
-          <Button variant="contained" onClick={() => setOpenPopup(false)}>
+          <Button variant="contained" onClick={() => {
+            setOpenPopup(false);
+            props.setUser(data);
+          }}>
             X
           </Button>
         </Toolbar>
@@ -109,6 +104,7 @@ export default function EditProfile(props) {
                 margin: 0,
                 minWidth: "100%",
               }}
+              onSubmit={handleSubmit}
             >
               <Box
                 fullWidth
@@ -132,13 +128,14 @@ export default function EditProfile(props) {
                   accept="image/*"
                   name="foto"
                   type="file"
-                  required
                   id="foto"
                 />
                 <TextField
                   margin="normal"
                   required
                   fullWidth
+                  value={user.name}
+                  onChange={onChange}
                   name="name"
                   label="Nombre Completo"
                   type="text"
@@ -149,6 +146,9 @@ export default function EditProfile(props) {
                   required
                   fullWidth
                   id="email"
+                  value={user.email}
+                  onChange={onChange}
+
                   label="Correo Electronico"
                   name="email"
                   autoFocus
@@ -158,8 +158,11 @@ export default function EditProfile(props) {
                   required
                   fullWidth
                   name="password"
+                  value={user.password}
                   label="Constraseña"
                   type="password"
+                  onChange={onChange}
+
                   id="password"
                 />
                 <TextField
@@ -168,21 +171,20 @@ export default function EditProfile(props) {
                   fullWidth
                   name="telf"
                   label="Telefono"
+                  value={user.telf}
+                  onChange={onChange}
+
                   id="telf"
                 />
                 <TextField
                   margin="normal"
                   fullWidth
                   name="red"
+                  value={user.red}
+                  onChange={onChange}
+
                   label="Link de alguna Red Social(opcional)"
                   id="red"
-                />
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  name="description"
-                  label="Descripción o mensaje(se verá cuando vean tu perfil)"
-                  id="description"
                 />
                 <Button
                   type="submit"

@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-
+import { createService} from "../services/service";
 import Container from "@mui/material/Container";
 import { createTheme, makeStyles, ThemeProvider } from "@mui/material/styles";
 import {
@@ -35,11 +35,31 @@ const Img = styled("img")({
 export default function Create(props) {
   const [category, setCategory] = useState("");
   const { openPopup, setOpenPopup, user, categories } = props;
+  const [values, setValues] = useState({
+    category: "",
+    title: "",
+    idUser: "1",
+    price: "",
+    description: "",
+    foto: "",
+  });
+  const onChange = (event) => {
+    setValues({
+      ...values, [event.target.name]: event.target.value,
+    });
+  };
   const handleChange = (event) => {
     setCategory(event.target.value);
-  };
-  const handleCreate = () => {
-    console.log("jija");
+    setValues({
+      ...values, [event.target.name]: event.target.value,
+    });
+  }
+  const handleCreate = (event) => {
+    event.preventDefault();
+    createService(values);
+    //get USer y setearlo 
+    alert('Servicio creado');
+    props.setOpenPopup(false);
     //insert insertion here ->_<-
   };
   const script = () => {
@@ -101,6 +121,8 @@ export default function Create(props) {
                 required
                 id="foto"
                 onClick={script}
+                onChange={onChange}
+
               />
               <TextField
                 margin="normal"
@@ -110,6 +132,8 @@ export default function Create(props) {
                 label="Title"
                 name="title"
                 autoFocus
+                onChange={onChange}
+
               />
               <Box display="flex" sx={{ flexDirection: "row"}}>
                 <TextField
@@ -118,13 +142,16 @@ export default function Create(props) {
                   required
                   fullWidth
                   name="price"
-                  label="Price..."
+                  label="Precio en $"
                   type="number"
                   id="price"
+                  onChange={onChange}
+
                 />
+                
                 <FormControl fullWidth sx={{ my: 2, p: "auto",ml: 2 }}>
                   <InputLabel id="demo-simple-select-label" required>
-                    Category
+                    Categorias
                   </InputLabel>
                   <Select
                     value={category}
@@ -132,8 +159,9 @@ export default function Create(props) {
                     name="category"
                     id="category"
                     label="Category"
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Categories" />}
+                  onChange={handleChange}
+                  onClick={onChange}
+                    input={<OutlinedInput label="Categorias" />}
                   >
                     {categories.map((category) => (
                       <MenuItem key={category} value={category}>
@@ -148,9 +176,10 @@ export default function Create(props) {
                 required
                 fullWidth
                 name="description"
-                label="Description..."
+                label="Decripcion..."
                 type="text"
                 multiline
+                onChange={onChange}
                 id="description"
               />
               <Button

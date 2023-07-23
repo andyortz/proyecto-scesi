@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import ButtonBase from "@mui/material/ButtonBase";
-import ExpandService from "./ExpandService";
+import ExpandService from "../pages/ExpandService";
 import {
   Typography,
   Checkbox,
@@ -25,41 +25,40 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-export default function ServiceItem({ service, toggleService }) {
+export default function ServiceItem({ service }) {
   const [openPopup, setOpenPopup] = useState(false);
-
-  const { id, titulo, category, user, price, description, isCompleted } =
+  const { id, title, category, user, price, description } =
     service;
-  const handleChange = () => {
-    toggleService(id);
-  };
+  
   return (
     <Card
       sx={{
-        p: 3,
         marginY: 2,
         marginX: "auto",
         maxWidth: "85%",
         flexGrow: 2,
+        border: 2,
+        borderColor: "lightgray",
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
+      elevation={0}
     >
       <CardActionArea onClick={() => {setOpenPopup(true)}}>
-        <Grid container spacing={2}>
-          <Grid item md={3} xs={12}>
-            <ButtonBase sx={{ width: "100%", height: 185, marginX: 2 }}>
+        <Grid container spacing={2} sx={{p:3}}>
+          <Grid item md={3} xs={12} sx={{display:"flex"}}>
               <Img
+                sx={{borderRadius: 2}}
+                maxWidth
                 alt="complex"
-                src={require("../img/emily-bernal-v9vII5gV8Lw-unsplash.jpg")}
+                src={require("../img/" + Math.floor(Math.random() * 7)+".jpg")}
               />
-            </ButtonBase>
           </Grid>
           <Grid item md={9} xs={12}container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs sx={{ margin: 2 }}>
                 <Typography gutterBottom variant="h5" component="div">
-                  {titulo}
+                  {title}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                   Precio: {price}
@@ -76,14 +75,10 @@ export default function ServiceItem({ service, toggleService }) {
                   sx={{ flexGrow: 1, margin: 0, p: 0 }}
                   color="text.secondary"
                 >
-                  By: {user}.{" "}
+                  By: {user}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {description}
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui,
-                  quibusdam. Dolorum temporibus distinctio omnis eos illum
-                  cupiditate quam commodi mollitia iusto? Tempora harum facilis,
-                  a hic aut sint rem sequi?
                 </Typography>
               </Grid>
             </Grid>

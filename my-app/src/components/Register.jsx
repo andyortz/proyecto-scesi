@@ -26,7 +26,19 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 export default function Register(props) {
-  const { openPopup, setOpenPopup, users, setUsers } = props;
+  const { openPopup, setOpenPopup, users, setUsers, loged, setLoged } = props;
+  const datos = [{
+    name:"name", text: "Ingrese su Nombre", type:"text"
+  },{
+    name:"email", text: "Ingrese su Correo Electronico", type:"email"
+  },{
+    name:"password", text: "Ingrese una Contraseña", type:"password"
+  },{
+    name:"telf", text: "Ingrese su telefono", type:"text"
+  },{
+    name:"red", text: "Alguna red Social o Portafolio", type:"text"
+  }
+  ];
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -35,17 +47,19 @@ export default function Register(props) {
     telf: "",
     red: "",
   });
+  const onChange = (event) => {
+    setValues({
+      ...values, [event.target.name]: event.target.value,
+    });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    setValues({
-      foto: event.target.foto.value,
-      name: event.target.name.value,
-      email: event.target.email.value,
-      password: event.target.password.value,
-      telf: event.target.telf.value,
-      red: event.target.red.value,
-    });
-    createUser(values);
+    const formdata = new FormData();
+    formdata.append('img', values.foto);
+    createUser(values).then(props.setLoged(true));
+    //get USer y setearlo 
+    alert('Usuario creado');
+    props.setOpenPopup(false);
   };
   const script = () => {
     const file = document.getElementById("foto");
@@ -66,6 +80,7 @@ export default function Register(props) {
       }
     });
   };
+
   return (
     <Dialog fullWidth open={openPopup}>
       <DialogTitle>
@@ -127,49 +142,21 @@ export default function Register(props) {
                   type="file"
                   id="foto"
                   onClick={script}
+                  onChange={onChange}
                 />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="name"
-                  label="Nombre Completo"
-                  type="text"
-                  id="name"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Correo Electronico"
-                  name="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Constraseña"
-                  type="password"
-                  id="password"
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="telf"
-                  label="Telefono"
-                  id="telf"
-                />
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  name="red"
-                  label="Link de alguna Red Social(opcional)"
-                  id="red"
-                />
+                {datos.map((dato) =>(
+                  <TextField
+                    key={dato.name}
+                    margin="normal"
+                    required
+                    fullWidth
+                    name={dato.name}
+                    label={dato.text}
+                    type={dato.type}
+                    id={dato.name}
+                    onChange={onChange}
+                  />
+                ))}
                 <Button
                   type="submit"
                   fullWidth

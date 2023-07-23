@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled, useTheme } from "@mui/material/styles";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -15,10 +15,13 @@ import {
   Typography,
   IconButton,
   List,
+  AppBar
 } from "@mui/material";
+import MuiAppBar from '@mui/material/AppBar';
 import Divider from "@mui/material/Divider";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItem from "@mui/material/ListItem";
+import LoginIcon from '@mui/icons-material/Login';
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -28,9 +31,25 @@ import Login from "./Login";
 import Create from "./Create";
 import Register from "./Register";
 import EditarPerfil from "./EditarPerfil";
-
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+const categories = [
+  "Desarrollo Mobil",
+  "Desarrollo Web",
+  "Diseño de Logo",
+  "Diseño Grafico",
+  "Diseño UX/UI",
+  "Diseño Web",
+  "Edicion de Audio",
+  "Edicion de Video",
+  "Fotografía",
+  "Marketing",
+  "Musica",
+  "Tutoria",
+  "Otro",
+];
 function ScrollTop(props) {
-  const { children, window, categories, loged, setLoged, user, setUser} = props;
+  const { children, window, loged, setLoged, user, setUser } =
+    props;
   const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector(
       "#back-to-top-anchor"
@@ -45,32 +64,66 @@ function ScrollTop(props) {
     <Box
       onClick={handleClick}
       role="presentation"
-      sx={{ position: "fixed", bottom: 16, right: 16 }}
+  sx={{ position: "fixed", bottom: 16, right: 16, boxShadow: "none" }}
     >
       {children}
     </Box>
   );
 }
 
-
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
-  boxShadow: "none",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
+  justifyContent: "flex-end"
 }));
 
 export default function BackToTop(props) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const actions = [
+    {
+      name: "Editar Perfil",
+      click: () => {
+        setOpenProfile(true);
+      },
+    },
+    {
+      name: "Crear",
+      click: () => {
+        setOpenCreate(true);
+      },
+    },
+    {
+      name: "Cerrar Sesión",
+      click: () => {
+        props.setLoged(false);
+      },
+    },
+    {
+      name: "Login",
+      click: () => {
+        setOpenLogin(true);
+      },
+    },
+    {
+      name: "Register",
+      click: () => {
+        setOpenRegister(true);
+      },
+    },
+  ];
   const [users, setUsers] = useState([
     {
       idProfile: 1,
@@ -82,42 +135,25 @@ export default function BackToTop(props) {
       red: "https://github.com/andyortz",
     },
   ]);
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openRegister, setOpenRegister] = useState(false);
-  const [openCreate, setOpenCreate] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
-
   return (
-    <>
+    <Box sx={{display:"flex"}}>
       <CssBaseline />
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar>
+        <AppBar elevation={0}>
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Products & Services Page
-            </Typography>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
+              sx={{ mr: 2, ...(open && { display: "block" }) }}
             >
               <MenuIcon />
             </IconButton>
-            {
-              // <Button
-              //   variant="contained"
-              //   onClick={() => setOpenPopup(true)}
-              //   align="rigth"
-              // >
-              //   {" "}
-              //   Login{" "}
-              // </Button>
-            }
+            <Typography  variant="h6" component="div" sx={{flexGrow: 1, textAlign:"center"}}>
+              Products & Services Page Planet
+            </Typography>
           </Toolbar>
         </AppBar>
-      </Box>
       <Toolbar id="back-to-top-anchor" />
       <ScrollTop {...props}>
         <Fab size="small" aria-label="scroll back to top">
@@ -134,7 +170,7 @@ export default function BackToTop(props) {
           },
         }}
         variant="persistent"
-        anchor="right"
+        anchor="left"
         open={open}
       >
         <DrawerHeader>
@@ -143,65 +179,72 @@ export default function BackToTop(props) {
             color="primary"
             sx={{ bgcolor: "lightgray" }}
           >
-            {theme.direction === "ltr" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronLeftIcon /> 
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {props.loged ? (
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }} onClick={() => {setOpenProfile(true)}}>
-                {
-                  //<ListItemIcon>
-                  // {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  // </ListItemIcon>
-                }
-                <ListItemText sx={{color:"primary.main" }} primary={" Editar Perfil "} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }} onClick={() => {setOpenCreate(true)}}>
-                <ListItemText sx={{color:"primary.main" }} primary={" Crear "} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }} onClick={() => {props.setLoged(false)}}>
-                <ListItemText sx={{color:"primary.main" }} primary={"  Sesion Cerrar"} />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        ) : (
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }} onClick={() => {setOpenLogin(true)}}>
-                <ListItemText sx={{color:"primary.main" }} primary={" Login "} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: "center"}} onClick={() => {setOpenRegister(true)}}>
-                <ListItemText primary={" Register "} sx={{color:"primary.main" }} />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        )}
+        <List>
+          {actions.map((action, index) => {
+            if (index < 3 && props.loged) {
+              return (
+                <ListItem key={action.name} disablePadding>
+                  <ListItemButton
+                    sx={{ textAlign: "center" }}
+                    onClick={() => {
+                      action.click();
+                    }}
+                  >
+                    <ListItemText
+                      sx={{ color: "primary.main" }}
+                      primary={action.name}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            } else if(index >=3 && index <=4 && !props.loged){
+              return(
+              <ListItem key={action.name} disablePadding>
+                <ListItemButton
+                  sx={{ textAlign: "left" }}
+                  onClick={() => {
+                    action.click();
+                  }}
+                >
+                 <ListItemIcon>
+                  {index  === 3? <LoginIcon /> : <VpnKeyIcon />}
+                  </ListItemIcon> 
+                  <ListItemText
+                    sx={{ color: "primary.main" }}
+                    primary={action.name}
+                  />
+                </ListItemButton>
+              </ListItem>);
+            } else if(index === 1 && props.loged){
+              <Link to = "/create"> Create</Link>
+            }
+          })}
+        </List>
       </Drawer>
-      <Login openPopup={openLogin} setOpenPopup={setOpenLogin} loged={props.loged} setLoged={props.setLoged}
-      user = {props.user} setUser = {props.setUser}
+      <Login
+        openPopup={openLogin}
+        setOpenPopup={setOpenLogin}
+        loged={props.loged}
+        setLoged={props.setLoged}
+        user={props.user}
+        setUser={props.setUser}
       />
       <Create
         openPopup={openCreate}
         setOpenPopup={setOpenCreate}
-        categories={props.categories}
+        categories={categories}
       />
-      <Register
-        openPopup={openRegister}
-        setOpenPopup={setOpenRegister}
+      <Register openPopup={openRegister} setOpenPopup={setOpenRegister} loged={props.loged} setLoged={props.setLoged}/>
+      <EditarPerfil
+        openPopup={openProfile}
+        setOpenPopup={setOpenProfile}
+        user={props.user}
+        setUser = {props.setUser}
       />
-      <EditarPerfil openPopup={openProfile} setOpenPopup={setOpenProfile} user={props.user}/>
-    </>
+    </Box>
   );
 }
